@@ -1,0 +1,14 @@
+.input-field {
+  height: 40px;
+  width: 90%;
+  border-radius: 5px;
+  border: 2px solid #eaeaea;
+  font-size: 18px;
+  padding: 5px 10px;
+}
+
+.input-label {
+  text-transform: uppercase;
+  color: #c0c0c0;
+  font-size: 12px;
+}
