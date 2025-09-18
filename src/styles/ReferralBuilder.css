@@ -1,0 +1,17 @@
+.referral-builder-page {
+  display: grid;
+  grid-template-columns: 40% 60%;
+}
+
+.referral-builder-page-table-container{
+    display: flex;
+}
+
+.referral-builder-page-form-container{
+    display: flex;
+    background-color: white;
+    height: 100vh;
+    width: 100%;
+    overflow-y: scroll;
+}
+
