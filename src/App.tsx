@@ -1,4 +1,4 @@
-import './App.css'
+import './styles/App.css'
 import ReferralBuilder from './pages/ReferralBuilder'
 import { Route, Routes } from 'react-router-dom'
 
