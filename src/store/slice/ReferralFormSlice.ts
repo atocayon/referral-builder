@@ -1,53 +1,101 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
+// Updated to match input names from ReferralForm
 interface ReferralFormState {
-    name: string;
+    firstName: string;
+    surname: string;
     email: string;
     phone: string;
-    referralCode: string;
-    message: string;
+    homeName: string;
+    street: string;
+    suburb: string;
+    state: string;
+    postcode: string;
+    country: string;
+    errors: {
+        firstName?: string;
+        surname?: string;
+        email?: string;
+        phone?: string;
+        homeName?: string;
+        street?: string;
+        suburb?: string;
+        state?: string;
+        postcode?: string;
+        country?: string;
+    };
 }
 
 const initialState: ReferralFormState = {
-    name: '',
+    firstName: '',
+    surname: '',
     email: '',
     phone: '',
-    referralCode: '',
-    message: '',
+    homeName: '',
+    street: '',
+    suburb: '',
+    state: '',
+    postcode: '',
+    country: '',
+    errors: {},
 };
 
 const referralFormSlice = createSlice({
     name: 'referralForm',
     initialState,
     reducers: {
-        setName(state: ReferralFormState, action: PayloadAction<string>) {
-            state.name = action.payload;
+        setFirstName(state, action: PayloadAction<string>) {
+            state.firstName = action.payload;
         },
-        setEmail(state: ReferralFormState, action: PayloadAction<string>) {
+        setSurname(state, action: PayloadAction<string>) {
+            state.surname = action.payload;
+        },
+        setEmail(state, action: PayloadAction<string>) {
             state.email = action.payload;
         },
-        setPhone(state: ReferralFormState, action: PayloadAction<string>) {
+        setPhone(state, action: PayloadAction<string>) {
             state.phone = action.payload;
         },
-        setReferralCode(state: ReferralFormState, action: PayloadAction<string>) {
-            state.referralCode = action.payload;
+        setHomeName(state, action: PayloadAction<string>) {
+            state.homeName = action.payload;
         },
-        setMessage(state: ReferralFormState, action: PayloadAction<string>) {
-            state.message = action.payload;
+        setStreet(state, action: PayloadAction<string>) {
+            state.street = action.payload;
         },
-        resetForm(state: ReferralFormState) {
+        setSuburb(state, action: PayloadAction<string>) {
+            state.suburb = action.payload;
+        },
+        setState(state, action: PayloadAction<string>) {
+            state.state = action.payload;
+        },
+        setPostcode(state, action: PayloadAction<string>) {
+            state.postcode = action.payload;
+        },
+        setCountry(state, action: PayloadAction<string>) {
+            state.country = action.payload;
+        },
+        setErrors(state, action: PayloadAction<ReferralFormState['errors']>) {
+            state.errors = action.payload;
+        },
+        resetForm(state) {
             Object.assign(state, initialState);
         },
     },
 });
 
 export const {
-    setName,
+    setFirstName,
+    setSurname,
     setEmail,
     setPhone,
-    setReferralCode,
-    setMessage,
+    setHomeName,
+    setStreet,
+    setSuburb,
+    setState,
+    setPostcode,
+    setCountry,
+    setErrors,
     resetForm,
 } = referralFormSlice.actions;
 
