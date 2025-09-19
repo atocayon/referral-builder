@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
+import { submitReferralForm } from '../thunk/ReferralFormThunk'; 
 
-// Updated to match input names from ReferralForm
 interface ReferralFormState {
     firstName: string;
     surname: string;
@@ -24,7 +24,10 @@ interface ReferralFormState {
         state?: string;
         postcode?: string;
         country?: string;
+        general?: string;
     };
+    successMessage?: string;
+    isLoading: boolean;
 }
 
 const initialState: ReferralFormState = {
@@ -39,6 +42,8 @@ const initialState: ReferralFormState = {
     postcode: '',
     country: '',
     errors: {},
+    successMessage: '',
+    isLoading: false,
 };
 
 const referralFormSlice = createSlice({
@@ -81,6 +86,27 @@ const referralFormSlice = createSlice({
         resetForm(state) {
             Object.assign(state, initialState);
         },
+        clearSuccessMessage(state) {
+            state.successMessage = '';
+        }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(submitReferralForm.pending, (state) => {
+                state.errors = {};
+                state.successMessage = '';
+                state.isLoading = true;
+            })
+            .addCase(submitReferralForm.fulfilled, (state, action) => {
+                Object.assign(state, initialState);
+                state.successMessage = action.payload.message || "Referral created successfully";
+                state.isLoading = false;
+            })
+            .addCase(submitReferralForm.rejected, (state) => {
+                state.errors = { ...state.errors, general: "Submission failed" };
+                state.successMessage = '';
+                state.isLoading = false;
+            });
     },
 });
 
@@ -97,6 +123,7 @@ export const {
     setCountry,
     setErrors,
     resetForm,
+    clearSuccessMessage,
 } = referralFormSlice.actions;
 
 export default referralFormSlice.reducer;
