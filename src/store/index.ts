@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import ReferralFormSlice from './slice/ReferralFormSlice';
+import ReferralsSlice from './slice/ReferralsSlice';
 
 const store = configureStore({
     reducer: {
         referralForm: ReferralFormSlice,
+        referrals: ReferralsSlice,
     },
 });
 

@@ -1,5 +1,33 @@
 .referral-table {
-    background-color: white;
-    height: fit-content;
-    margin: 5rem 2rem;
+  background-color: white;
+  height: fit-content;
+  margin: 5rem 2rem;
+  width: 100%;
+  border-radius: 3px;
+  padding: 2rem 1rem;
+}
+
+.referral-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.referral-table th {
+  text-align: left;
+  padding: .5rem;
+  border-bottom: 1px solid #eaeaea;
+  text-transform: uppercase;
+  color: #b6b6b6;
+  font-size: 14px;
+}
+.referral-table td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #eaeaea;
+  color: #c0c0c0
+}
+
+.referral-table button {
+  background: none;
+  border: none;
+  cursor: pointer;
 }
