@@ -1,53 +1,31 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import type { RootState } from '../store'; // Adjust path if needed
+import type { AppDispatch, RootState } from '../store'; // Adjust path if needed
 import {
-    setFirstName,
-    setSurname,
-    setEmail,
-    setPhone,
-    setHomeName,
-    setStreet,
-    setSuburb,
-    setState,
-    setPostcode,
-    setCountry,
     setErrors,
     type ReferralFormState,
+    handleFormInputChange,
+    type FormFieldName,
 } from '../store/slice/ReferralFormSlice';
 import Input from './common/Input';
 import Button from './common/Button';
+import { submitReferralForm } from '../store/thunk/ReferralFormThunk';
+import { fetchReferrals } from '../store/thunk/ReferralsThunk';
 
 interface ReferralFormProps {
     className?: string;
 }
 
 const ReferralForm: React.FC<ReferralFormProps> = ({ className = '' }) => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const form = useSelector((state: RootState) => state.referralForm);
-
-    // Map input names to their corresponding dispatch actions
-    const inputActionMap: Record<string, (value: string) => void> = {
-        firstName: (value) => dispatch(setFirstName(value)),
-        surname: (value) => dispatch(setSurname(value)),
-        email: (value) => dispatch(setEmail(value)),
-        phone: (value) => dispatch(setPhone(value)),
-        homeName: (value) => dispatch(setHomeName(value)),
-        street: (value) => dispatch(setStreet(value)),
-        suburb: (value) => dispatch(setSuburb(value)),
-        state: (value) => dispatch(setState(value)),
-        postcode: (value) => dispatch(setPostcode(value)),
-        country: (value) => dispatch(setCountry(value)),
-    };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        if (inputActionMap[name]) {
-            inputActionMap[name](value);
-        }
+        dispatch(handleFormInputChange({ name: name as FormFieldName, value }));
     };
 
-    const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const requiredFields: string[] = [
             'firstName',
@@ -70,8 +48,10 @@ const ReferralForm: React.FC<ReferralFormProps> = ({ className = '' }) => {
         });
 
         dispatch(setErrors(newErrors));
-        // Optionally, handle successful submission if no errors
-        // if (Object.keys(newErrors).length === 0) { ... }
+        if (Object.keys(newErrors).length === 0) {
+            await dispatch(submitReferralForm(form))
+            await dispatch(fetchReferrals());
+        }
     };
 
     return (
