@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { submitReferralForm } from '../thunk/ReferralFormThunk'; 
 
-interface ReferralFormState {
+export interface ReferralFormState {
     firstName: string;
     surname: string;
     email: string;

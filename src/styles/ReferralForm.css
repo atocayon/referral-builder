@@ -1,13 +1,13 @@
 .referral-form {
   display: flex;
   flex-direction: column;
-  margin: 3rem 2rem;
+  margin: 2rem 2rem;
   width: 100%;
 }
 
 .referral-form-inputs-container {
   display: grid;
-  column-gap: 2rem;
+  column-gap: 1.5rem;
   grid-template-columns: 49% 50%;
 }
 
@@ -17,8 +17,7 @@
   color: #b6b6b6;
   width: 100%;
   border-bottom: 2px solid #dfdfdf;
-  margin-bottom: 15px;
-  padding-bottom: 5px;
+  margin-bottom: 10px;
   text-transform: uppercase;
 }
 

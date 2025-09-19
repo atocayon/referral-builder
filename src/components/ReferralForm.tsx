@@ -13,6 +13,7 @@ import {
     setPostcode,
     setCountry,
     setErrors,
+    type ReferralFormState,
 } from '../store/slice/ReferralFormSlice';
 import Input from './common/Input';
 import Button from './common/Button';
@@ -46,10 +47,9 @@ const ReferralForm: React.FC<ReferralFormProps> = ({ className = '' }) => {
         }
     };
 
-    // Handle form validation and set errors for missing fields
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        const requiredFields: Array<keyof typeof form> = [
+        const requiredFields: string[] = [
             'firstName',
             'surname',
             'email',
@@ -64,7 +64,7 @@ const ReferralForm: React.FC<ReferralFormProps> = ({ className = '' }) => {
 
         const newErrors: { [key: string]: string } = {};
         requiredFields.forEach((field) => {
-            if (!form[field] || (typeof form[field] === 'string' && form[field].trim() === '')) {
+            if (!form[field as keyof ReferralFormState] || (typeof form[field as keyof ReferralFormState] === 'string' && form[field as keyof ReferralFormState] === '')) {
                 newErrors[field] = 'This field is required';
             }
         });
